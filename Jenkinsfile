@@ -1,5 +1,8 @@
 pipeline {
     agent { label 'dotnet' }
+    environment {
+        PATH = "/usr/bin:${env.PATH}"
+    }
 
     stages {
 
