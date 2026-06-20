@@ -31,10 +31,10 @@ pipeline {
                 sh 'dotnet publish HelloApi/HelloApi.csproj -o ./publish'
                 sh 'fuser -k 5000/tcp 2>/dev/null || true'
                 sh 'sleep 2'
-                sh 'bash -c "nohup dotnet ./publish/HelloApi.dll --urls http://0.0.0.0:5000 > app.log 2>&1 & disown"'
+                sh 'setsid nohup dotnet ./publish/HelloApi.dll --urls http://0.0.0.0:5000 > app.log 2>&1 < /dev/null &'
                 sh 'sleep 5'
                 sh 'cat app.log'
-    }
+        }
 }
     }
 
