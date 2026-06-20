@@ -1,3 +1,4 @@
+using Xunit;                          // ← add this!
 using HelloApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
 
