@@ -28,8 +28,13 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                sh 'pkill -f "dotnet HelloApi.dll" || true'
-                sh 'nohup dotnet publish/HelloApi.dll --urls http://0.0.0.0:5000 > app.log 2>&1 &'
+                sh 'dotnet publish HelloApi/HelloApi.csproj -o ./publish'
+                sh 'fuser -k 5000/tcp 2>/dev/null || true'
+                sh 'sleep 2'
+                sh 'nohup dotnet ./publish/HelloApi.dll --urls http://0.0.0.0:5000 > app.log 2>&1 &'
+                sh 'sleep 5'
+                sh 'cat app.log'
+                
             }
         }
     }
