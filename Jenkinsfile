@@ -33,6 +33,23 @@ pipeline {
                 }
             }
         }
+        stage('Publish to JFrog') {
+            steps {
+                withCredentials([usernamePassword(
+                    credentialsId: 'artifactory-creds',
+                    usernameVariable: 'JFROG_USER',
+                    passwordVariable: 'JFROG_TOKEN'
+                )]) {
+                    sh '''
+                        zip -r dotnet-demo-${BUILD_NUMBER}.zip publish/
+
+                        curl -u $JFROG_USER:$JFROG_TOKEN \
+                        -T dotnet-demo-${BUILD_NUMBER}.zip \
+                        "http://13.232.193.183:8082/artifactory/dotnet-artifacts/dotnet-demo-${BUILD_NUMBER}.zip"
+                    '''
+                }
+            }
+        }
 
         stage('Deploy') {
             steps {
