@@ -26,6 +26,14 @@ pipeline {
             }
         }
 
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('sonarqube') {
+                    sh "${tool('sonar-scanner')}/bin/sonar-scanner"
+                }
+            }
+        }
+
         stage('Deploy') {
             steps {
                 sh 'nohup dotnet publish/HelloApi.dll --urls http://0.0.0.0:5000 &'
