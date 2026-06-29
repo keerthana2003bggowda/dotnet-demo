@@ -45,7 +45,7 @@ pipeline {
 
                         curl -u $JFROG_USER:$JFROG_TOKEN \
                         -T dotnet-demo-${BUILD_NUMBER}.zip \
-                        "http://13.232.193.183:8082/artifactory/dotnet-artifacts/dotnet-demo-${BUILD_NUMBER}.zip"
+                        "http://13.201.51.61:8082//artifactory/dotnet-artifacts/dotnet-demo-${BUILD_NUMBER}.zip"
                     '''
                 }
             }
