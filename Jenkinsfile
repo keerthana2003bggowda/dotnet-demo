@@ -16,7 +16,8 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'dotnet build HelloApi.sln'
+                sh 'dotnet build HelloApi.sln' 
+                sh 'dotnet publish HelloApi/HelloApi.csproj -c Release -o publish/'
             }
         }
 
